@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from mysite_app.models import About, Achivement, Home, Information, Navbar,Project
+from mysite_app.models import About, Achivement, Home, Information, Navbar,Project, Service
 
 
 def index(request):
@@ -18,3 +18,6 @@ def index(request):
     data['achive']=achive
     data['project']=project
     return render(request, 'index.html',data)
+def service(request):
+    details=Service.objects.all()
+    return render(request, 'service.html',{'details':details})

@@ -38,3 +38,17 @@ class Project(models.Model):
     
     def __str__(self):
         return self.project_name
+    
+class Webtype(models.Model):
+    name=models.CharField(max_length=100,null=False)
+    def __str__(self):
+        return self.name
+class Service(models.Model):
+    web_type=models.ForeignKey(Webtype,on_delete=models.CASCADE)
+    web_pic=models.ImageField(upload_to='media/web_pic',null=True,blank=False)
+    web_name=models.CharField(max_length=265,null=True,blank=False)
+    web_desc=models.TextField(null=False)
+    web_url=models.URLField(max_length=500,null=False)
+    
+    def __str__(self):
+        return self.web_name
