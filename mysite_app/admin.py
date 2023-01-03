@@ -1,4 +1,4 @@
-from .models import About, Achivement, Home, Information, Navbar,Project, Service, Webtype
+from .models import About, Achivement, Contact, Home, Information, Navbar,Project, Service, Webtype
 from django.contrib import admin
 
 admin.site.register(Navbar)
@@ -32,3 +32,4 @@ class AdminWebtype(admin.ModelAdmin):
 admin.site.register(Service)
 class AdminService(admin.ModelAdmin):
     list_display=['web_type','web_pic','web_name','web_desc','web_url']
+admin.site.register(Contact)
