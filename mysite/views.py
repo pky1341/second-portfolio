@@ -20,4 +20,5 @@ def index(request):
     return render(request, 'index.html',data)
 def service(request):
     details=Service.objects.all()
+    
     return render(request, 'service.html',{'details':details})

@@ -12,24 +12,98 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 
     <title>Hello, world!</title>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap');
       body {
         background-color: #318e94;
       }
+      .tilt-in-bottom-2 {
+        -webkit-animation: tilt-in-bottom-2 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                animation: tilt-in-bottom-2 0.6s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      }
+      @-webkit-keyframes tilt-in-bottom-2 {
+        0% {
+          -webkit-transform: rotateY(-30deg) translateY(300px) skewY(30deg);
+                  transform: rotateY(-30deg) translateY(300px) skewY(30deg);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: rotateY(0deg) translateY(0) skewY(0deg);
+                  transform: rotateY(0deg) translateY(0) skewY(0deg);
+          opacity: 1;
+        }
+      }
+      @keyframes tilt-in-bottom-2 {
+        0% {
+          -webkit-transform: rotateY(-30deg) translateY(300px) skewY(30deg);
+                  transform: rotateY(-30deg) translateY(300px) skewY(30deg);
+          opacity: 0;
+        }
+        100% {
+          -webkit-transform: rotateY(0deg) translateY(0) skewY(0deg);
+                  transform: rotateY(0deg) translateY(0) skewY(0deg);
+          opacity: 1;
+        }
+      }      
+      .tracking-in-expand {
+        font-family: 'Roboto Mono', monospace;
+        font-size:60px;
+        -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+                animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+      }
+      @-webkit-keyframes tracking-in-expand {
+        0% {
+          letter-spacing: -0.5em;
+          opacity: 0;
+        }
+        40% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes tracking-in-expand {
+        0% {
+          letter-spacing: -0.5em;
+          opacity: 0;
+        }
+        40% {
+          opacity: 0.6;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      
+      
     </style>
   </head>
   <body>
-    {% if 'website' == details.web_type %}
-    <div class="container">
+    <div class="container p-3">
+      <div class="row">
+        <div class="col-sm-3 fs-5 fw-bold 
+        tracking-in-expand"><a href="#section_1" class="text-decoration-none text-dark">websites</a></div>
+        <div class="col-sm-3 fs-5 fw-bold 
+        tracking-in-expand"><a href="#section_2" class="text-decoration-none text-dark">Project on github</a></div>
+        <div class="col-sm-3 fs-5 fw-bold 
+        tracking-in-expand"><a href="#section_3" class="text-decoration-none text-dark">Ecommerce</a></div>
+        <div class="col-sm-3 fs-5 fw-bold 
+        tracking-in-expand"><a href="/" class="text-decoration-none text-dark"><i class="fas fa-home text-text-dark"></i></a></div>
+      </div>
+    </div>
+    <hr>
+    <div class="container" id="section_1">
       <div class="row">
         <div><h1 class="text-center p-4">Websites</h1></div>
         {% for obj in details %}
         <div class="col-sm-3">
           <div class="row">
             <div class="col-12">
-              <div class="card bg-transparent text-white mb-4 shadow-sm">
+              <div class="card bg-transparent text-white mb-4 shadow-sm tilt-in-bottom-2">
                 <img
                   src=" {{obj.web_pic.url}} "
                   class="card-img-top"
@@ -57,16 +131,16 @@
         {% endfor %}
       </div>
     </div>
-    {% else %}
+    
     <hr />
-    <div class="container">
+    <div class="container" id="section_3" >
       <div class="row">
         <div><h1 class="text-center p-4">Ecommerce</h1></div>
         {% for obj in details %}
         <div class="col-sm-3">
           <div class="row">
             <div class="col-12">
-              <div class="card bg-transparent text-white mb-4 shadow-sm">
+              <div class="card bg-transparent text-white mb-4 shadow-sm tilt-in-bottom-2">
                 <img
                   src=" {{obj.web_pic.url}} "
                   class="card-img-top"
@@ -94,7 +168,42 @@
         {% endfor %}
       </div>
     </div>
-    {% endif %}
+    <hr />
+    <div class="container" id='section_2'>
+      <div class="row">
+        <div><h1 class="text-center p-4">project on github</h1></div>
+        {% for obj in details %}
+        <div class="col-sm-3">
+          <div class="row">
+            <div class="col-12">
+              <div class="card bg-transparent text-white mb-4 shadow-sm tilt-in-bottom-2">
+                <img
+                  src=" {{obj.web_pic.url}} "
+                  class="card-img-top"
+                  alt="Screenshot of Website"
+                />
+                <div class="card-body">
+                  <h5 class="card-title">{{obj.web_name}}</h5>
+                  <p class="card-text">{{obj.web_desc}}</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center"
+                  >
+                    <div class="btn-group">
+                      <a
+                        href=" {{obj.web_url}} "
+                        class="btn btn-success btn-successs-ingradient"
+                        >View project</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
