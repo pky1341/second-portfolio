@@ -507,22 +507,28 @@ https://templatemo.com/tm-578-first-portfolio
                             </div>
 
                             <div class="col-lg-6 col-12 mt-5 mt-lg-0">
-                                <form action="/" method="post" class="custom-form contact-form" role="form">
+                                <form action="" method="post" class="custom-form contact-form" id="frm" role="form">
                                 {% csrf_token %}
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-12">
+                                            
                                             <div class="form-floating">
-                                                <input type="text" name="name" id="name" class="form-control" placeholder="Name" value="{{name}}" required="true">
-                                                
+                                                <input type="text" name="name" autocomplete="off" id="name" class="form-control" placeholder="Name" value="{{name}}" required="true">
                                                 <label for="floatingInput">Name</label>
                                             </div>
+                                            <div class="alert alert-danger" id='name_err' role="alert">
+                                                
+                                            </div>   
                                         </div>
 
-                                        <div class="col-lg-6 col-md-6 col-12"> 
+                                        <div class="col-lg-6 col-md-6 col-12">
+                                             
                                             <div class="form-floating">
-                                                <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address"  required="true">
-                                                
+                                                <input type="email" required="true" name="email" id="email" pattern="[^ @]*@[^ @]*" autocomplete="off" class="form-control" placeholder="Email address">
                                                 <label for="floatingInput">Email address</label>
+                                            </div>
+                                            <div class="alert alert-danger" id='email_err' role="alert">
+                                                
                                             </div>
                                         </div>
 
@@ -571,24 +577,30 @@ https://templatemo.com/tm-578-first-portfolio
                                         </div> {% endcomment %}
 
                                         <div class="col-lg-12 col-12">
+                                            
                                             <div class="form-floating">
-                                                <textarea class="form-control" id="message" name="message" value=" {{message}} " placeholder="Tell me about the project"></textarea>
-                                                
+                                                <textarea class="form-control" id="msg" name="message" value=" {{message}} " placeholder="Tell me about the project"></textarea>
                                                 <label for="floatingTextarea">Tell me about the project</label>
                                             </div>
+                                            <div class="alert alert-danger" id='msg_err' role="alert">
+                                                
+                                            </div>
                                         </div>
-                                        {% if err %}
-                                        <div class="alert alert-danger " role="alert">
-                                            {{err}}
-                                          </div>
+                                        {% comment %} {% if err %} 
+                                        
                                         {% endif %}
+
                                         {% if grey_err %}
-                                        <div class="alert alert-success" role="alert">
+                                        <div class="alert alert-success" id='' role="alert">
                                             {{grey_err}}
                                           </div> 
-                                          {% endif %}
+                                          {% endif %} {% endcomment %}
                                         <div class="col-lg-3 col-12 ms-auto">
-                                            <button type="submit" class="form-control">Send</button>
+                                            
+                                            
+                                              
+                                        
+                                            <button type="submit" id="submit" class="form-control">Send</button>
                                         </div>
 
                                     </div>
@@ -628,11 +640,105 @@ https://templatemo.com/tm-578-first-portfolio
         <script src="/static/js/jquery.magnific-popup.min.js"></script>
         <script src="/static/js/magnific-popup-options.js"></script>
         <script src="/static/js/custom.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            $('#redirect').click(function({
-                window.location.href=$(this).attr('#target');
-            }));
-        </script>
+            $(document).ready(function() {
+                $('#name_err').hide();
+                $('#email_err').hide();
+                $('#msg_err').hide();
 
+                var name_bt=true;
+                
+                var msg_bt=true;
+
+                $('#name').keyup(function(){
+                    name_check();
+                });
+                function name_check(){
+                    pattern=/^[A-Za-zÀ-ÿ ,.'-]+$/;
+                    var name=$('#name').val();
+                    
+                    if(pattern.test(name) && (name !='')){
+                        $('#name_err').hide();
+                    }else{
+                        $('#name_err').show();
+                        $('#name_err').html('name contains only charecters...');
+                        $('#name_err').focus();
+                        name_bt=false;
+                        return false;
+                    }
+
+                    if((name.length < 3) || (name.length > 25) ){
+                        $('#name_err').show();
+                        $('#name_err').html('name length must be between 3 and 25');
+                        $('#name_err').focus();
+                        name_bt=false;
+                        return false;
+                    }
+                    else{
+                        $('#name_err').hide();
+                    }
+                }   
+                $('#msg').keyup(function(){
+                    msg_check();
+                });
+                function msg_check(){
+                    pattern=/^[A-Za-zÀ-ÿ ,.'-]+$/;
+                    var msg=$('#msg').val();
+                    if(pattern.test(msg) && msg != ''){
+                        $('#msg_err').hide();
+                        
+                    }else{
+                        $('#msg_err').show();
+                        $('#msg_err').html('**messages contains only charecters...');
+                        $('#msg_err').focus();
+                        msg_bt=false;
+                        return false;
+                    }
+                    if((msg.length < 6) || (msg.length > 500) ){
+                        $('#msg_err').show();
+                        $('#msg_err').html('name length must be between 6 and 500');
+                        $('#msg_err').focus();
+                        msg_bt=false;
+                        return false;
+                    }
+                    else{
+                        $('#msg_err').hide();
+                    }
+                }
+                $('#submit').click(function(){
+                        name_bt=true;            
+                        msg_bt=true;
+
+                        name_check();
+                        msg_check();
+                        if((name_bt == true) && (msg_bt == true))
+                        {
+                            return true;
+                            
+                        }else{
+                            return false;
+                        }
+                });
+            });
+            
+        </script>
+        <script>
+            $(document).on('submit','#frm'function(e){
+                e.preventDefaault();
+
+                $.ajax({
+                    url:'',
+                    data:{
+                        sub:$('#submit').val(),
+                        csrfmiddleware:$('input[name=csrfmiddleware]').val()
+                    },
+                    success:function(data){
+                        $('#successful').html(data);
+                    }
+                })
+            });
+        </script>
     </body>
 </html>
