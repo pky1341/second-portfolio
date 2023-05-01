@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-oq4(pew$*av999=03h-_5s2iz%q5s6)ood7-f*e7l5h3=5+lx$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
